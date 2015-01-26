@@ -460,7 +460,7 @@ if [ 1 -eq $get_riakcmds ]; then
     cd "${start_dir}"/"${debug_dir}"/ring
 
     ring_dir="`epath 'riak_core ring_state_dir' "$riak_epaths" | sed -e 's/^"//' -e 's/".*$//'`"
-    if [ '.' = `echo "$ring_dir" | cut -c1` ]; then
+    if [ '/' != `echo "$ring_dir" | cut -c1` ]; then
         # relative path. prepend base dir
         ring_dir="$riak_base_dir"/"$ring_dir"
     fi
@@ -512,7 +512,7 @@ if [ 1 -eq $get_logs ]; then
     [ -z "$riak_epaths" ] && riak_epaths=`make_app_epaths "${riak_app_config}"`
 
     log_dir="`epath 'riak_core platform_log_dir' "$riak_epaths" | sed -e 's/^"//' -e 's/".*$//'`"
-    if [ '.' = `echo "$log_dir" | cut -c1` ]; then
+    if [ '/' != `echo "$log_dir" | cut -c1` ]; then
         # relative path. prepend base dir
         log_dir="$riak_base_dir"/"$log_dir"
     fi
@@ -546,7 +546,7 @@ if [ 1 -eq $get_logs ]; then
     for lager_path in $lager_files; do
         # Get lager logs if they weren't in platform_log_dir
         if [ -n "$lager_path" ]; then
-            if [ '.' = `echo "$lager_path" | cut -c1` ]; then
+            if [ '/' != `echo "$lager_path" | cut -c1` ]; then
                 # relative path. prepend base dir
                 lager_path="$riak_base_dir"/"$lager_path"
             fi
@@ -568,7 +568,7 @@ if [ 1 -eq $get_logs ]; then
     if [ 'riak_kv_eleveldb_backend' = "$backend" ]; then
         leveldb_dir="`epath 'eleveldb data_root' "$riak_epaths" | sed -e 's/^"//' -e 's/".*$//'`"
 
-        if [ '.' = `echo "$leveldb_dir" | cut -c1` ]; then
+        if [ '/' != `echo "$leveldb_dir" | cut -c1` ]; then
             # relative path. prepend base dir
             leveldb_dir="$riak_base_dir"/"$leveldb_dir"
         fi
@@ -599,7 +599,7 @@ if [ 1 -eq $get_logs ]; then
     elif [ 'riak_kv_bitcask_backend' = "$backend" ]; then
         bitcask_dir="`epath 'bitcask data_root' "$riak_epaths" | sed -e 's/^"//' -e 's/".*$//'`"
 
-        if [ '.' = `echo "$bitcask_dir" | cut -c1` ]; then
+        if [ '/' != `echo "$bitcask_dir" | cut -c1` ]; then
             # relative path. prepend base dir
             bitcask_dir="$riak_base_dir"/"$bitcask_dir"
         fi
@@ -629,7 +629,7 @@ if [ 1 -eq $get_logs ]; then
                 dr="`epath "riak_kv multi_backend $b riak_kv_eleveldb_backend data_root" "$riak_epaths" |
                     sed -e 's/^"//' -e 's/".*$//'`"
 
-                if [ '.' = `echo "$dr" | cut -c1` ]; then
+                if [ '/' != `echo "$dr" | cut -c1` ]; then
                     # relative path. prepend base dir
                     dr="$riak_base_dir"/"$dr"
                 fi
@@ -661,7 +661,7 @@ if [ 1 -eq $get_logs ]; then
                 dr="`epath "riak_kv multi_backend $b riak_kv_bitcask_backend data_root" "$riak_epaths" |
                     sed -e 's/^"//' -e 's/".*$//'`"
 
-                if [ '.' = `echo "$dr" | cut -c1` ]; then
+                if [ '/' != `echo "$dr" | cut -c1` ]; then
                     # relative path. prepend base dir
                     dr="$riak_base_dir"/"$dr"
                 fi
@@ -692,7 +692,7 @@ if [ 1 -eq $get_logs ]; then
     # assume it's presence on disk indicates activity.
     anti_entropy_dir="`epath 'riak_kv anti_entropy_data_dir' "$riak_epaths" | sed -e 's/^"//' -e 's/".*$//'`"
 
-    if [ '.' = `echo "$anti_entropy_dir" | cut -c1` ]; then
+    if [ '/' != `echo "$anti_entropy_dir" | cut -c1` ]; then
         # relative path. prepend base dir
         anti_entropy_dir="$riak_base_dir"/"$anti_entropy_dir"
     fi
